@@ -29,7 +29,7 @@ var getArtistNames = function(artist) {
  
 var getMeSpotify = function(songName) {
  
-	spotify.search({ type: 'track', query: 'songName' }, function(err, data) {
+	spotify.search({ type: 'track', query: 'mi gente' }, function(err, data) {
 	  if (err) {
 	    console.log('Error occurred: ' + err);
 	    return;
@@ -67,8 +67,8 @@ var getMeMovie = function(movieName){
 	});
 }
 
-// fs.file
-var doWhatItSays = function{
+fs.file
+var doWhatItSays = function {
 	fs.readFile('random.txt', 'utf8', function (err, data) {
 	  if (err) throw err;
 	  console.log(data);

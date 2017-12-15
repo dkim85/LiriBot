@@ -1,7 +1,7 @@
 {
-  "name": "my-cool-app",
+  "name": "homework",
   "version": "1.0.0",
-  "description": "This is my homework",
+  "description": "redoing and fixing hw",
   "main": "keys.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,10 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/dkim85/LiriBot.git"
   },
-  "keywords": [
-    "homework"
-  ],
-  "author": "danilo kim",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/dkim85/LiriBot/issues"
@@ -23,5 +20,6 @@
     "node-spotify-api": "^1.0.7",
     "request": "^2.83.0",
     "twitter": "^1.7.1"
-  }
+  },
+  "devDependencies": {}
 }
