@@ -6,7 +6,7 @@ var request = require('request');
 // functions ~~~ Twitter
 
 var getMyTweets = function() {
- 
+ console.log("getmytweets()")
 	var client = new Twitter(keys.twitterKeys);
 	 
 	var params = {screen_name: 'kimchibcha'};
@@ -28,6 +28,11 @@ var getArtistNames = function(artist) {
 }
  
 var getMeSpotify = function(songName) {
+
+	var spotify = new Spotify({
+		id: keys.spotifyKeys.id,
+		secret: keys.spotifyKeys.secret
+	})
  
 	spotify.search({ type: 'track', query: 'mi gente' }, function(err, data) {
 	  if (err) {
@@ -67,8 +72,8 @@ var getMeMovie = function(movieName){
 	});
 }
 
-fs.file
-var doWhatItSays = function {
+// fs.file
+var doWhatItSays = function () {
 	fs.readFile('random.txt', 'utf8', function (err, data) {
 	  if (err) throw err;
 	  console.log(data);
@@ -85,8 +90,10 @@ var doWhatItSays = function {
 }
 
 var pick = function(caseData, functionData) {
+	// console.log("swith stament")
 	switch(caseData) {
 		case 'my-tweets' :
+		// console.log("my-tweets")
 			getMyTweets();
 			break;
 		case 'spotify-this-song' :
@@ -104,6 +111,7 @@ var pick = function(caseData, functionData) {
 }
 
 var runThis = function(argOne, argTwo) {
+	// console.log("run this!")
 	pick(argOne, argTwo);
 };
 
