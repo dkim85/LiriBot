@@ -1,45 +1,49 @@
 var keys = require('./keys.js');
-var Twitter = require('twitter');
+var twitter = require('twitter');
 var Spotify = require('node-spotify-api');
 var request = require('request');
 
 // functions ~~~ Twitter
 
 var getMyTweets = function() {
- console.log("getmytweets()")
+	//  console.log("getmytweets()")
 	var client = new Twitter(keys.twitterKeys);
-	 
+		
 	var params = {screen_name: 'kimchibcha'};
 	client.get('statuses/user_timeline', params, function(error, tweets, response) {
-	  if (!error) {
-	    for(var i=0; i<tweets.length; i++){
-	    	console.log(tweets[i].created_at);
-	    	console.log(' ');
-	    	console.log(tweets[i].text);
-	    }
-	  }
+		if (!error) {
+			// console.log(tweets);
+			// Loop to display only texts and tweets
+			for(var i=0; i<tweets.length; i++) {
+				console.log(tweets[i].created_at);
+				console.log(' ');
+				console.log(tweets[i].text);
+			}
+		}
 	});
+
 }
 
-// function Spotify ~~~~
+// // function Spotify ~~~~
 
 var getArtistNames = function(artist) {
 	return artist.name;
-}
- 
+} 
 var getMeSpotify = function(songName) {
 
-	var spotify = new Spotify({
-		id: keys.spotifyKeys.id,
-		secret: keys.spotifyKeys.secret
+// 	var spotify = new Spotify({
+// 		id: keys.spotifyKeys.id,
+// 		secret: keys.spotifyKeys.secret
+// 	})
+
+// spotify search is having issues. 
+spotify.search({ type: 'track', query: 'Despacito' })
+	.then(function (response) {
+		console.log(response);
 	})
- 
-	spotify.search({ type: 'track', query: 'mi gente' }, function(err, data) {
-	  if (err) {
-	    console.log('Error occurred: ' + err);
-	    return;
-	  }
-	 
+	.catch(function (err) {
+		console.log(err);
+
 	  var songs = data.tracks.items;
 	  for(var i=0; i<songs.length; i++) {
 	  	  console.log(i);
@@ -89,11 +93,12 @@ var doWhatItSays = function () {
 	});
 }
 
+// Creating a switch statement to hold different arguments of the user
+//  node liri.js my tweets to output my tweets
+
 var pick = function(caseData, functionData) {
-	// console.log("swith stament")
 	switch(caseData) {
 		case 'my-tweets' :
-		// console.log("my-tweets")
 			getMyTweets();
 			break;
 		case 'spotify-this-song' :
@@ -106,15 +111,15 @@ var pick = function(caseData, functionData) {
 			doWhatItSays();
 			break;
 		default:
-		console.log('LIRI does not know that');
+		console.log('No Detected');
 	}
 }
 
+// creating a function to pass arguments when selecting pick
 var runThis = function(argOne, argTwo) {
-	// console.log("run this!")
 	pick(argOne, argTwo);
 };
-
+// Referecing whatever argument the user enters argv2=mytweets, find this song argv3=the movie user choose or the song
 runThis(process.argv[2], process.argv[3]);
 
 
