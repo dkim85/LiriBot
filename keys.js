@@ -12,8 +12,9 @@ var spotifyKeys = {
   secret: 'f9aaa2719bd44069abddf71d982e4ee9'
 }
 
+// is it necessary? 
 var omdbKey = {
-  key: ''
+  key: 'ab20af37'
 }
 
 module.exports = {

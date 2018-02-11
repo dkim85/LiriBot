@@ -1,8 +1,8 @@
 const keys = require("./keys.js");
-
-var Twitter = require('twitter');
-var Spotify = require('node-spotify-api');
-
+const Twitter = require('twitter');
+const Spotify = require('node-spotify-api');
+const request = require('request');
+const fs = require("fs");
 
 // create a function only when Twitter is called, not automatically run
 
@@ -50,6 +50,43 @@ var getMeSpotify = function(songName) {
 				}
 		});
 }
+// Request 
+function movieSearch(searchedMovie) {
+				var movieName = searchedMovie;
+
+				var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
+
+				// console.log(queryUrl);
+
+				request(queryUrl, function (error, response, body) {
+					if (!error && response.statusCode === 200) {
+						console.log("Title: " + JSON.parse(body).Title);
+						console.log("Release Year: " + JSON.parse(body).Year);
+						console.log("Rated: " + JSON.parse(body).Rated);
+						console.log("Actors: " + JSON.parse(body).Actors);
+						console.log("IMDB Rating: " + JSON.parse(body).imdbRating);
+						console.log("Rotten Tomatoes Rating: " + JSON.parse(body).rottenTomatoesRating);  //need to fix
+						console.log("Country/Countries Filmed: " + JSON.parse(body).Country);
+						console.log("Language(s): " + JSON.parse(body).Language);
+						console.log("Plot: " + JSON.parse(body).Plot);
+					}
+				});
+}
+// fs file
+
+var doWhatItSays = function() {
+			fs.readFile("random.txt", "utf8", function (err, data) {
+				if (err) throw err;
+				var dataArr = data.split(',');
+
+				if (dataArr.length == 2) {
+					pick(dataArr[0], dataArr[1]);
+				} else if (dataArr.length ==1) {
+					pick(dataArr[0]);
+				}
+			});
+}
+
 	// Switch statement to hold different arguments
 
 var pick = function(caseData, functionData) {
@@ -60,6 +97,10 @@ var pick = function(caseData, functionData) {
 			case 'spotify-this-song':
 						getMeSpotify(functionData);
 						break;
+			case 'movie-this':
+						movieSearch(functionData);
+			case 'do-what-it-says':
+						doWhatItSays();
 			default:
 			console.log('LIRI is dumb, cant recognize this');
 		}
